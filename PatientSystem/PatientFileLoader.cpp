@@ -23,7 +23,7 @@ std::vector<Patient*> PatientFileLoader::loadPatientFile(const std::string& file
         while (std::getline(inFile, line))
         {
             //Initialise starting fields and grab them. uid is ignored as it is generated anyway.
-            std:string uid, fullName, birthday, diagnosis, vitals;
+            std::string uid, fullName, birthday, diagnosis, vitals;
         
             std::istringstream lineStream(line);
 
