@@ -6,6 +6,11 @@ PatientFileLoaderAdapter::PatientFileLoaderAdapter(const std::string& filePath) 
 {
 }
 
+void PatientFileLoaderAdapter::initialiseConnection()
+{
+	// Fake connection, makes it easier to swap out the database loader in the management system.
+}
+
 void PatientFileLoaderAdapter::loadPatients(std::vector<Patient*>& patientIn)
 {
 	// Take all patients from the file loader and add them to the abstract database loader vector.
@@ -14,4 +19,9 @@ void PatientFileLoaderAdapter::loadPatients(std::vector<Patient*>& patientIn)
 	{
 		patientIn.push_back(p);
 	}
+}
+
+void PatientFileLoaderAdapter::closeConnection()
+{
+	// Fake connection close.
 }
