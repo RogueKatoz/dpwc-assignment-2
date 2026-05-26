@@ -22,23 +22,33 @@ std::vector<Patient*> PatientFileLoader::loadPatientFile(const std::string& file
 
         while (std::getline(inFile, line))
         {
-            //Initialise starting fields and grab them.
-            std:string uid, firstName, lastName, birthday;
+            //Initialise starting fields and grab them. uid is ignored as it is generated anyway.
+            std:string uid, fullName, birthday, diagnosisStr, vitalsStr;
+        
             std::stringstream lineStream(line);
-            char delimiter = '|';
 
-            std::getline(lineStream, uid, delimiter);
-            std::getline(lineStream, lastName, delimiter);
-            std::getline(lineStream, firstName, delimiter);
-            std::getline(lineStream, birthday, delimiter);
+            std::getline(lineStream, uid, '|');
+            std::getline(lineStream, fullName, '|');
+            std::getline(lineStream, birthday, '|');
+            std::getline(lineStream, diagnosisStr, '|');
+            std::getline(lineStream, vitalsStr, '|');
+
+            // Split full name into first and last name.
+		    std::string firstName, lastName;
+			std::istringstream nameStream(fullName);
+            std::getline(nameStream, lastName, ',');
+            std::getline(nameStream, firstName, ',');
 
             // Get time from birthday, taken from database loader.
             std::tm t{ };
             std::istringstream ss(birthday);
             ss >> std::get_time(&t, "%d-%m-%Y");
 
-            // Make new patient from starting fields.
+            // Make new patient.
 			Patient* p = new Patient(firstName, lastName, t);
+
+            
+    
 
         }
     }
