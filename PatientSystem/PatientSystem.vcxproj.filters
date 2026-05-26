@@ -42,9 +42,6 @@
     <ClCompile Include="GPNotificationSystemFacade.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="PatientFileLoaderAdaptor.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="PatientFileLoaderAdapter.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>

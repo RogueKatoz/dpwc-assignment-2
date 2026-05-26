@@ -2,4 +2,5 @@
 
 void PatientFileLoaderAdapter::loadPatients(std::vector<Patient*>& patientIn)
 {
+	PatientFileLoaderAdapter
 }
