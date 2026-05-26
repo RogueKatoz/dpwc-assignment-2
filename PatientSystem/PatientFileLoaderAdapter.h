@@ -8,7 +8,7 @@
 class PatientFileLoaderAdapter : public AbstractPatientDatabaseLoader
 {
 public:
-	PatientFileLoaderAdapter(const std::string& file);
+	PatientFileLoaderAdapter(const std::string& filePath);
 
 	void loadPatients(std::vector<Patient*>& patientIn) override;
 
