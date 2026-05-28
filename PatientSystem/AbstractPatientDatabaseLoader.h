@@ -7,6 +7,9 @@ class Patient;
 
 class AbstractPatientDatabaseLoader {
 public:
+	// deconstructor to help with memory management of the composite loader.
+	virtual ~AbstractPatientDatabaseLoader() = default;
+
 	// initialise the database connection
 	virtual void initialiseConnection() = 0;
 

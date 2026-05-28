@@ -14,6 +14,8 @@ public:
 	void loadPatients(std::vector<Patient*>& patientIn) override;
 	void closeConnection() override;
 
+
+
 private:
-	std::vector<std::unique_ptr<AbstractPatientDatabaseLoader>> m_loaders;
+	std::vector<std::unique_ptr<AbstractPatientDatabaseLoader>> _loaders;
 };
