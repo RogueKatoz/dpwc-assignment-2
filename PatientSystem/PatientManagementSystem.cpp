@@ -5,6 +5,7 @@
 #include <tuple>
 
 #include "Patient.h"
+#include "CompositePatientLoader.h"
 #include "PatientDatabaseLoader.h"
 #include "PatientFileLoaderAdapter.h"
 #include "Vitals.h"
@@ -14,12 +15,21 @@
 
 using namespace std;
 
+unique_ptr<AbstractPatientDatabaseLoader> createPatientLoaders()
+// Helper to create a composite patient loader for combined database/file loading.
+{
+	auto loader = make_unique<CompositePatientLoader>();
+	loader->addLoader(make_unique<PatientDatabaseLoader>());
+	loader->addLoader(make_unique<PatientFileLoaderAdapter>("patients.txt"));
+	return loader;
+}
 
 PatientManagementSystem::PatientManagementSystem() :
 
-	// Swap between the following two lines to change between database/file loader.
+	// Swap between the following three lines to change between database/file loader or both.
 	//_patientDatabaseLoader(std::make_unique<PatientDatabaseLoader>()),
-	_patientDatabaseLoader(std::make_unique<PatientFileLoaderAdapter>("patients.txt")),
+	//_patientDatabaseLoader(std::make_unique<PatientFileLoaderAdapter>("patients.txt")),
+	_patientDatabaseLoader(createPatientLoaders()),
 
 	_hospitalAlertSystem(std::make_unique<HospitalAlertSystemFacade>()),
 	_gpNotificationSystem(std::make_unique<GPNotificationSystemFacade>())
