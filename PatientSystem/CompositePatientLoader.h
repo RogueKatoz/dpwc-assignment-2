@@ -9,7 +9,7 @@ class CompositePatientLoader : public AbstractPatientDatabaseLoader {
 public:
 	CompositePatientLoader() = default;
 
-	void createLoader(std::unique_ptr<AbstractPatientDatabaseLoader> loader);
+	void addLoader(std::unique_ptr<AbstractPatientDatabaseLoader> loader);
 	void initialiseConnection() override;
 	void loadPatients(std::vector<Patient*>& patientIn) override;
 	void closeConnection() override;
