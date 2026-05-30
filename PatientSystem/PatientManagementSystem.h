@@ -5,11 +5,14 @@
 #include <string>
 #include <vector>
 
+#include "HospitalAlertObserver.h"
+#include "GPNotificationObserver.h"
+
 
 // forward declare several classes
 class AbstractPatientDatabaseLoader;
-class HospitalAlertSystemFacade;
-class GPNotificationSystemFacade;
+class HospitalAlertObserver;
+class GPNotificationObserver;
 class Patient;
 
 
@@ -35,8 +38,8 @@ protected:
 	std::vector<Patient*> _patients;
 	std::map<std::string, Patient*> _patientLookup;
 
-	std::unique_ptr<HospitalAlertSystemFacade> _hospitalAlertSystem;
-	std::unique_ptr<GPNotificationSystemFacade> _gpNotificationSystem;
+	std::unique_ptr<HospitalAlertObserver> _hospitalAlertObserver;
+	std::unique_ptr<GPNotificationObserver> _gpNotificationObserver;
 
 	std::unique_ptr<AbstractPatientDatabaseLoader> _patientDatabaseLoader;
 
