@@ -94,7 +94,11 @@ void Patient::setAlertLevel(AlertLevel level)
 			cout << "Red";
 			break;
 		}
+
 		cout << endl;
+
+		// notify observers if the patient alert level changes to red.
+		if (_alertLevel == AlertLevel::Red) notifyAlertObservers();
 	}
 }
 
