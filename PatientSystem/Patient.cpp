@@ -97,3 +97,15 @@ void Patient::setAlertLevel(AlertLevel level)
 		cout << endl;
 	}
 }
+
+void Patient::addAlertObserver(PatientAlertObserver* observer)
+{
+	_alertObservers.push_back(observer);
+}
+
+void Patient::notifyAlertObservers()
+{
+	for (PatientAlertObserver* observer : _alertObservers) {
+		observer->onPatientAlertLevelChanged(this);
+	}
+}
