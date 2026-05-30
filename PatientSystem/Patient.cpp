@@ -5,6 +5,9 @@
 #include <sstream>
 
 #include "Vitals.h"
+#include "CordycepsAlertLevelStrategy.h"
+#include "KepralsAlertLevelStrategy.h"
+#include "AndromedaAlertLevelStrategy.h"
 
 
 using namespace std;
@@ -59,6 +62,21 @@ std::ostream& operator<<(std::ostream& os, const Patient& p)
 void Patient::addDiagnosis(const std::string& diagnosis)
 {
 	_diagnosis.push_back(diagnosis);
+
+	// set alert level strategy based on this diagnosis.
+	if (diagnosis == Diagnosis::CORDYCEPS_BRAIN_INFECTION)
+	{
+		_alertLevelStrategy = std::make_unique<CordycepsAlertLevelStrategy>();
+	}
+	else if (diagnosis == Diagnosis::KEPRALS_SYNDROME)
+	{
+		_alertLevelStrategy = std::make_unique<KepralsAlertLevelStrategy>();
+	}
+	else if (diagnosis == Diagnosis::ANDROMEDA_STRAIN)
+	{
+		_alertLevelStrategy = std::make_unique<AndromedaAlertLevelStrategy>();
+	}
+	
 }
 
 const std::string& Patient::primaryDiagnosis() const
@@ -66,15 +84,24 @@ const std::string& Patient::primaryDiagnosis() const
 	return _diagnosis.front();
 }
 
-void Patient::addVitals(const Vitals* v)
+void Patient::addVitals(const Vitals* v, VitalsRecordType recordType)
 {
 	_vitals.push_back(v);
-	// TODO: calculate alert levels
+	
+	// Calculate alert level only for new records, not ones retrieved from database/file.
+	if (recordType == VitalsRecordType::NewRecord) {
+		setAlertLevel(calculateAlertLevel(*v));
+	}
 }
 
 const std::vector<const Vitals*> Patient::vitals() const
 {
 	return _vitals;
+}
+
+AlertLevel Patient::calculateAlertLevel(const Vitals& vitals) const
+{
+	return _alertLevelStrategy->calculateAlertLevel(*this, vitals);
 }
 
 void Patient::setAlertLevel(AlertLevel level)
