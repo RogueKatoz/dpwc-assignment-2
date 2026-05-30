@@ -5,6 +5,7 @@
 #include <vector>
 
 #include "PatientAlertLevels.h"
+#include "PatientAlertObserver.h"
 
 
 // forward declare classes
@@ -46,11 +47,16 @@ public:
 	// patients have an alert level (green, yellow, orange, red) calculated from their disease and and their last vitals
 	void setAlertLevel(AlertLevel level);
 	const AlertLevel alertLevel() const { return _alertLevel; }
+	
+	// create/notify observers.
+	void addAlertObserver(PatientAlertObserver* observer);
+	void notifyAlertObservers();
 
 protected:
 	std::vector<std::string> _diagnosis;
 	std::vector<const Vitals*> _vitals;
 	AlertLevel _alertLevel;
+	std::vector<PatientAlertObserver*> _alertObservers;
 
 	friend std::ostream& operator<<(std::ostream& os, const Patient& p);
 };
