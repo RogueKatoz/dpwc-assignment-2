@@ -5,6 +5,9 @@
 #include <sstream>
 
 #include "Vitals.h"
+#include "CordycepsAlertLevelStrategy.h"
+#include "KepralsAlertLevelStrategy.h"
+#include "AndromedaAlertLevelStrategy.h"
 
 
 using namespace std;
@@ -75,6 +78,16 @@ void Patient::addVitals(const Vitals* v)
 const std::vector<const Vitals*> Patient::vitals() const
 {
 	return _vitals;
+}
+
+void Patient::addVitalsRecord(const Vitals* v)
+{
+
+}
+
+AlertLevel Patient::calculateAlertLevel(const Vitals& vitals) const
+{
+	return AlertLevel();
 }
 
 void Patient::setAlertLevel(AlertLevel level)

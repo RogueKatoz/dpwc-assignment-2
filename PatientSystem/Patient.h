@@ -5,7 +5,10 @@
 #include <vector>
 
 #include "PatientAlertLevels.h"
+#include "AlertLevelStrategy.h"
 
+// Type of record, so alert levels aren't calculated from database/file loader entries.
+enum class VitalsRecordType { Historical, NewRecord };
 
 // forward declare classes
 class Vitals;
@@ -43,6 +46,9 @@ public:
 	void addVitals(const Vitals* v);
 	const std::vector<const Vitals*> vitals() const;
 
+	//New function for FR3, calculate alert level.
+	AlertLevel calculateAlertLevel(const Vitals& vitals) const;
+
 	// patients have an alert level (green, yellow, orange, red) calculated from their disease and and their last vitals
 	void setAlertLevel(AlertLevel level);
 	const AlertLevel alertLevel() const { return _alertLevel; }
@@ -51,6 +57,8 @@ protected:
 	std::vector<std::string> _diagnosis;
 	std::vector<const Vitals*> _vitals;
 	AlertLevel _alertLevel;
+	// Add vector of alert level strategies, in case we need to support multiple diagnoses in the future.
+	std::vector<std::unique_ptr<AlertLevelStrategy>> _alertLevelStrategy;
 
 	friend std::ostream& operator<<(std::ostream& os, const Patient& p);
 };
