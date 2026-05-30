@@ -31,8 +31,8 @@ PatientManagementSystem::PatientManagementSystem() :
 	//_patientDatabaseLoader(std::make_unique<PatientFileLoaderAdapter>("patients.txt")),
 	_patientDatabaseLoader(createPatientLoaders()),
 
-	_hospitalAlertSystem(std::make_unique<HospitalAlertSystemFacade>()),
-	_gpNotificationSystem(std::make_unique<GPNotificationSystemFacade>())
+	_hospitalAlertObserver(std::make_unique<HospitalAlertObserver>()),
+	_gpNotificationObserver(std::make_unique<GPNotificationObserver>())
 {
 	_patientDatabaseLoader->initialiseConnection();
 }
