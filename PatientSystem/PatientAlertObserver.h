@@ -5,5 +5,6 @@ class Patient;
 class PatientAlertObserver {
 public:
 	virtual ~PatientAlertObserver() = default;
-	virtual void onPatientAlert(Patient* p) = 0;
+	//
+	virtual void onPatientAlertLevelChanged(Patient* p) = 0;
 };
