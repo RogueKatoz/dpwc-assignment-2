@@ -69,20 +69,18 @@ const std::string& Patient::primaryDiagnosis() const
 	return _diagnosis.front();
 }
 
-void Patient::addVitals(const Vitals* v)
+void Patient::addVitals(const Vitals* v, VitalsRecordType recordType)
 {
 	_vitals.push_back(v);
-	// TODO: calculate alert levels
+	
+	if (recordType == VitalsRecordType::NewRecord) {
+		setAlertLevel(calculateAlertLevel(*v));
+	}
 }
 
 const std::vector<const Vitals*> Patient::vitals() const
 {
 	return _vitals;
-}
-
-void Patient::addVitalsRecord(const Vitals* v)
-{
-
 }
 
 AlertLevel Patient::calculateAlertLevel(const Vitals& vitals) const

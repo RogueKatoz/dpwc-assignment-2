@@ -43,7 +43,7 @@ public:
 	const std::string& primaryDiagnosis() const;
 
 	// add a vitals mesaurements record to the patient
-	void addVitals(const Vitals* v);
+	void addVitals(const Vitals* v, VitalsRecordType recordType = VitalsRecordType::Historical);
 	const std::vector<const Vitals*> vitals() const;
 
 	//New function for FR3, calculate alert level.
