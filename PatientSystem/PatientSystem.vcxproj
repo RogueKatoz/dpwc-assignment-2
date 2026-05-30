@@ -140,7 +140,9 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="CompositePatientLoader.cpp" />
+    <ClCompile Include="GPNotificationObserver.cpp" />
     <ClCompile Include="GPNotificationSystemFacade.cpp" />
+    <ClCompile Include="HospitalAlertObserver.cpp" />
     <ClCompile Include="HospitalAlertSystemFacade.cpp" />
     <ClCompile Include="Patient.cpp" />
     <ClCompile Include="PatientDatabaseLoader.cpp" />
