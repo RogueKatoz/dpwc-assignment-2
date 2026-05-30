@@ -10,6 +10,6 @@ class AlertLevelStrategy {
 public:
 	virtual ~AlertLevelStrategy() = default;
 
-	// Needs current vitals and patient age information.
+	// Virtual function for each strategy to implement.
 	virtual AlertLevel calculateAlertLevel(const Patient & patient, const Vitals & vitals) const = 0;
 };
