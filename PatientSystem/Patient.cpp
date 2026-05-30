@@ -73,6 +73,7 @@ void Patient::addVitals(const Vitals* v, VitalsRecordType recordType)
 {
 	_vitals.push_back(v);
 	
+	// Calculate alert level only for new records, not ones retrieved from database/file.
 	if (recordType == VitalsRecordType::NewRecord) {
 		setAlertLevel(calculateAlertLevel(*v));
 	}
@@ -85,7 +86,7 @@ const std::vector<const Vitals*> Patient::vitals() const
 
 AlertLevel Patient::calculateAlertLevel(const Vitals& vitals) const
 {
-	return AlertLevel();
+	return _alertLevelStrategy->calculateAlertLevel(*this, vitals);
 }
 
 void Patient::setAlertLevel(AlertLevel level)
